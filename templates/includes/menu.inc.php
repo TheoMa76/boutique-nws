@@ -4,6 +4,6 @@
 
 <div class="navbar">
     <ul>
-        <li></li>    
+        <li><a href="./?page=register">Inscription</a></li>
     </ul>
 </div>

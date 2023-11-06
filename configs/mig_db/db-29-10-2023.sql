@@ -4,7 +4,7 @@ USE boutiquenws;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     createdAt DATE,
     lastLogin DATE
 );
@@ -33,3 +33,7 @@ CREATE TABLE commandes_produit (
     FOREIGN KEY (commande_id) REFERENCES Commandes(id),
     FOREIGN KEY (produit_id) REFERENCES Produit(id)
 );
+
+ALTER TABLE users 
+ADD COLUMN role VARCHAR(10) NOT NULL AFTER `password`, 
+ADD COLUMN updatedAt DATE AFTER `createdAt`;

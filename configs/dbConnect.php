@@ -1,6 +1,6 @@
 <?php
 
-    abstract class PDOManagerClass extends PDO {
+    class PDOManagerClass extends PDO {
 
         private $host;
         private $username;
@@ -22,23 +22,11 @@
                 $this->password = $configData['database']['password'];
                 $this->port = $configData['database']['port'];
                 $this->db_name = $configData['database']['db_name'];
-                $this->connect();
+                $dsn ="mysql:host=".$this->host.";dbname=".$this->db_name;
+                dd($dsn);
+                parent::__construct($dsn,$this->username,$this->password);
+                //$this->connect();            
             }
-            
-    
-        // private
-        private function connect() : bool {
-            try {
-                $pdo = new PDO("mysql:host=$this->host;port=$this->port;dbname=$this->db_name", $this->username, $this->password);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $this->pdo = $pdo;
-                return true;
-            } catch (PDOException $e) {
-                return false;
-                die("Erreur de connexion : " . $e->getMessage());
-            }
-        }
-
         public function findAll(array $table): array {
             try {
                 $data[] = [];
