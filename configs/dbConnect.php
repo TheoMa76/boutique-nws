@@ -23,8 +23,12 @@
                 $this->port = $configData['database']['port'];
                 $this->db_name = $configData['database']['db_name'];
                 $dsn ="mysql:host=".$this->host.";dbname=".$this->db_name;
-                dd($dsn);
-                parent::__construct($dsn,$this->username,$this->password);
+                try {
+                    $this->pdo = new PDO($dsn, $this->username, $this->password);
+                    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                } catch (PDOException $e) {
+                    die("Erreur de connexion : " . $e->getMessage());
+                }
                 //$this->connect();            
             }
         public function findAll(array $table): array {
@@ -56,7 +60,7 @@
             }
         }
 
-        public function getRelation(array $table , string $condition, string $condColonnes, array $select = ["*"]){
+        public function getRelation(array $table , string $condition, string $condColonnes = "", array $select = ["*"]){
             try{
                 $query = "SELECT";
                 $last = array_key_last($select);
@@ -72,7 +76,7 @@
                 }
                 $query.=" $condColonnes";
                 $query.=" WHERE $condition ";
-
+                dd($query);
                 $statement = $this->pdo->prepare($query);
                 $statement->execute();
                 $data = $statement->fetchAll(PDO::FETCH_ASSOC);
