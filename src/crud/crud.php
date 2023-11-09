@@ -111,7 +111,6 @@ function create(Object $object){
     }
     $query = queryBuilder('c',$nomTable, $attributs);
     $connection = new PDOManagerClass();
-    dd($connection);
     try {
         $statement = $connection->prepare($query);
         $statement->execute();
@@ -137,7 +136,6 @@ function update(Object $object, int $id){
     }
 
     $query = queryBuilder('u', $nomTable, $attributs, ["id" => $id]);
-    dd($query);
 
     $connection = new PDOManagerClass();
     try {

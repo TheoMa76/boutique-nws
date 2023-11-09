@@ -23,6 +23,7 @@
                 $this->port = $configData['database']['port'];
                 $this->db_name = $configData['database']['db_name'];
                 $dsn ="mysql:host=".$this->host.";dbname=".$this->db_name;
+                parent::__construct($dsn, $this->username, $this->password);
                 try {
                     $this->pdo = new PDO($dsn, $this->username, $this->password);
                     $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -50,7 +51,6 @@
                 $query = "SELECT * FROM $table[0] WHERE";
                 $query .=" $condition";
 
-                dd($query);
                 $statement = $this->pdo->prepare($query);
                 $statement->execute();
                 $data = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -76,7 +76,6 @@
                 }
                 $query.=" $condColonnes";
                 $query.=" WHERE $condition ";
-                dd($query);
                 $statement = $this->pdo->prepare($query);
                 $statement->execute();
                 $data = $statement->fetchAll(PDO::FETCH_ASSOC);
