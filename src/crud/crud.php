@@ -164,17 +164,23 @@ function delete(Object $object, int $id){
     } catch(PDOException $e) {
         echo $query . "<br>" . $e->getMessage();
     }
+}
 
-    function read(Object $object){
-        $attributs = [];
-        $reflectionClass = new ReflectionClass($object);
-        $proprietes = $reflectionClass->getProperties(ReflectionProperty::IS_PROTECTED);
-        $nomClass = $reflectionClass->getShortName();
-        $nomTable = strtolower($nomClass);
+function read(string $table){
 
-        $query = queryBuilder('r', $nomTable);
+    $query = queryBuilder('r', $table);
+    dd($query);
+    $connection = new PDOManagerClass();
+    try {
+        $statement = $connection->prepare($query);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    } catch(PDOException $e) {
+        echo $query . "<br>" . $e->getMessage();
     }
 }
+
 
 
 

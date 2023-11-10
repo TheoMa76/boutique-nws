@@ -24,6 +24,11 @@ if(isset($_GET['page']) && $_GET['page'] === 'accueil') {
     include './templates/accueil/accueil.php';
 }
 
+if(isset($_GET['page']) && $_GET['page'] === 'admin') {
+    include './templates/admin/admin.php';
+}
+
+
 
 //$result = $pdo->getRelation(["marque","model","avis"],["ordinateur","avis"],"ordinateur.id = ordinateur_id",["ordinateur.id = 15"]);
 //$ordinateur = new Ordinateur("DAUBE","BELLE DAUBE", "0","0","0","999999999");

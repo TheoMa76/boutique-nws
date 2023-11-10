@@ -1,4 +1,5 @@
 <?php
+
 namespace Theo\Entity;
 
 class Users{

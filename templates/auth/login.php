@@ -1,12 +1,14 @@
 <?php
 require_once "./configs/dbConnect.php";
 require_once "./templates/includes/layoutGeneral.inc.php";
-
+require_once "./src/Entity/Users.php";
 
 use Theo\Entity\Users;
 use Theo\Controller\Database;
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password'])) {
   $conn = new PdoManagerClass();
   $password = $_POST['password'];
@@ -17,10 +19,24 @@ if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']
   $userData = $conn->getRelation(["users"], "email='$clean_email'", "", ["password"]);
 
   if (!empty($userData) && password_verify($clean_password, $userData[0]['password'])) {
+
+    //$user = new Users($clean_password, $clean_email);
     $_SESSION['user_email'] = $clean_email;
+    $userconstruc =  $conn->findBy(["users"], "email='$clean_email'");
+    dd($userconstruc);
+    $user = new Users ($userconstruc[0]['password'], $userconstruc[0]['email'], $userconstruc[0]['role']);
+    $user->setId($userconstruc[0]['id']);
+    $user->setCreatedAt($userconstruc[0]['createdAt']);
+    $user->setUpdatedAt($userconstruc[0]['updatedAt']);
+    $_SESSION['user_role'] = $user->getRole();
+    $user->setLastLogin(date('Y-m-d'));
+    update($user, $user->getId());
     if(isset($_SESSION['user_email'])){
       $user_email = $_SESSION['user_email'];
-      echo "L'utilisateur connecté est : " . $user_email;
+
+    header("Location: ?page=accueil");
+    echo("Bienvenue $user_email");
+    exit();
     } else {
       echo "Aucun utilisateur connecté";
     }

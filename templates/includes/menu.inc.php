@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Ma Boutique</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,11 +13,18 @@
         <li class="nav-item active">
           <a class="nav-link" href="./?page=accueil">Accueil <span class="sr-only">(current)</span></a>
         </li>
+        <?php
+         if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+          // Si l'utilisateur a le role admin
+            echo '
+            <li class="nav-item">
+            <a class="nav-link" href="./?page=admin">Administration</a>
+            </li>
+            ';
+        } 
+        ?>
         <li class="nav-item">
           <a class="nav-link" href="./?page=produits">Produits</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./?page=panier">Panier</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,6 +35,7 @@
                     if (isset($_SESSION['user_email'])) {
                         // Si l'utilisateur est connecté
                         echo '
+                        <a class="dropdown-item" href="./?page=panier">Mon panier</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="./?page=logout">Déconnexion</a>
                         ';
