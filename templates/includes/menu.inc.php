@@ -1,9 +1,14 @@
 <?php
 session_start();
 ?>
-
+<style>
+        .navbar {
+           z-index: 9999;
+        }
+    </style>
+    
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Ma Boutique</a>
+    <a class="navbar-brand" href="#">Boutique-NWS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

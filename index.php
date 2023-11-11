@@ -28,13 +28,17 @@ if(isset($_GET['page']) && $_GET['page'] === 'admin') {
     include './templates/admin/admin.php';
 }
 
+if(isset($_GET['page']) && $_GET['page'] === 'newproduits') {
+    include './templates/produits/newProduits.php';
+}
 
+//NE MARCHE PAS ! VOIR PLUSIEURS PARAM ( facile a corriger)
 
-//$result = $pdo->getRelation(["marque","model","avis"],["ordinateur","avis"],"ordinateur.id = ordinateur_id",["ordinateur.id = 15"]);
-//$ordinateur = new Ordinateur("DAUBE","BELLE DAUBE", "0","0","0","999999999");
-//update($ordinateur,10);
-//$result = $pdo->findAll('ordinateur');
-$html = new htmlGen();
+// if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['page']) && $_GET['page'] === 'produit') {
+//     include './templates/produits/listProduits.php';
+// }
 
-//$html->display(['ordinateur','avis'],'relation',"ordinateur.id = 15","ordinateur.id = ordinateur_id",["marque","model","avis"]);
-//dd($result);
+// if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['page']) && $_GET['page'] === 'user') {
+//     include './templates/users/listUsers.php';
+// }
+

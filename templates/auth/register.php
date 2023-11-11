@@ -21,7 +21,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $user->setCreatedAt($dateFormatted);
   $user->setUpdatedAt($dateFormatted);
   $user->setLastLogin($dateFormatted);
-  dd($user);
   create($user);
 }
 ?>

@@ -1,10 +1,9 @@
 <?php
 require_once "./templates/includes/layoutGeneral.inc.php";
 
-dd($_SESSION);
 ?>
     <header>
-        <h1>Ma Boutique en Ligne</h1>
+        <h1>Boutique-NWS</h1>
     </header>
    <?php
     require_once "./templates/includes/menu.inc.php";

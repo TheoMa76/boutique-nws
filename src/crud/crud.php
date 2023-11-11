@@ -19,7 +19,6 @@ function queryBuilder($method, $table, ...$payload){
         default:
            
             die("ERROR : Prepared query method not defined");
-            break;
     }
 
     $query .= '`'.  htmlspecialchars($table) . '` ';
@@ -169,7 +168,6 @@ function delete(Object $object, int $id){
 function read(string $table){
 
     $query = queryBuilder('r', $table);
-    dd($query);
     $connection = new PDOManagerClass();
     try {
         $statement = $connection->prepare($query);

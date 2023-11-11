@@ -23,7 +23,7 @@ if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']
     //$user = new Users($clean_password, $clean_email);
     $_SESSION['user_email'] = $clean_email;
     $userconstruc =  $conn->findBy(["users"], "email='$clean_email'");
-    dd($userconstruc);
+
     $user = new Users ($userconstruc[0]['password'], $userconstruc[0]['email'], $userconstruc[0]['role']);
     $user->setId($userconstruc[0]['id']);
     $user->setCreatedAt($userconstruc[0]['createdAt']);
