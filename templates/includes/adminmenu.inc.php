@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./?page=admin?page=user">
+                        <a class="nav-link" href="./?page=admin&sous-page=user">
                             Utilisateurs
                         </a>
                     </li>
