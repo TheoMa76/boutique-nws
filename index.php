@@ -1,11 +1,14 @@
 <?php
-
 require_once "./configs/dbConnect.php";
 require_once "./src/crud/crud.php";
 require_once "./src/outils/toolkit.php";
 // require_once "./src/entity/Ordinateur.php";
 require_once "./src/outils/htmlGen.php";
 include "./templates/includes/menu.inc.php";
+require_once "./src/Entity/Users.php";
+
+use Theo\Entity\Users;
+
 debugMode(true);
 
 if(isset($_GET['page']) && $_GET['page'] === 'register') {
@@ -25,20 +28,11 @@ if(isset($_GET['page']) && $_GET['page'] === 'accueil') {
 }
 
 if(isset($_GET['page']) && $_GET['page'] === 'admin') {
-    include './templates/admin/admin.php';
+    $user = unserialize(serialize($_SESSION['user']));
+    if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['user']) && $user->getRole() === 'admin'){
+        include './templates/admin/admin.php';
+}else {
+        include './templates/error/404.php';
+        exit();
+    }
 }
-
-if(isset($_GET['page']) && $_GET['page'] === 'newproduits') {
-    include './templates/produits/newProduits.php';
-}
-
-//NE MARCHE PAS ! VOIR PLUSIEURS PARAM ( facile a corriger)
-
-// if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['page']) && $_GET['page'] === 'produit') {
-//     include './templates/produits/listProduits.php';
-// }
-
-// if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['page']) && $_GET['page'] === 'user') {
-//     include './templates/users/listUsers.php';
-// }
-

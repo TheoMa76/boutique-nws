@@ -20,19 +20,19 @@ if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']
 
   if (!empty($userData) && password_verify($clean_password, $userData[0]['password'])) {
 
-    //$user = new Users($clean_password, $clean_email);
-    $_SESSION['user_email'] = $clean_email;
     $userconstruc =  $conn->findBy(["users"], "email='$clean_email'");
 
     $user = new Users ($userconstruc[0]['password'], $userconstruc[0]['email'], $userconstruc[0]['role']);
+
     $user->setId($userconstruc[0]['id']);
     $user->setCreatedAt($userconstruc[0]['createdAt']);
     $user->setUpdatedAt($userconstruc[0]['updatedAt']);
-    $_SESSION['user_role'] = $user->getRole();
     $user->setLastLogin(date('Y-m-d'));
     update($user, $user->getId());
-    if(isset($_SESSION['user_email'])){
-      $user_email = $_SESSION['user_email'];
+    $_SESSION['user'] = $user;
+    $_SESSION['user_role'] = $user->getRole();
+    if(isset($_SESSION['user'])){
+      $user_email = $_SESSION['user']->getEmail();
 
     header("Location: ?page=accueil");
     echo("Bienvenue $user_email");

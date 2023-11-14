@@ -19,7 +19,7 @@ session_start();
           <a class="nav-link" href="./?page=accueil">Accueil <span class="sr-only">(current)</span></a>
         </li>
         <?php
-         if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+         if (isset($_SESSION['user']) && $_SESSION['user_role'] == 'admin') {
           // Si l'utilisateur a le role admin
             echo '
             <li class="nav-item">
@@ -37,7 +37,7 @@ session_start();
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php
-                    if (isset($_SESSION['user_email'])) {
+                    if (isset($_SESSION['user'])) {
                         // Si l'utilisateur est connecté
                         echo '
                         <a class="dropdown-item" href="./?page=panier">Mon panier</a>
