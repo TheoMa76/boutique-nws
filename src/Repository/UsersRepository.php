@@ -20,4 +20,9 @@ class UsersRepository {
         }
         return $users;
     }
+
+    function findById($id){
+       $result = read("users");
+       dd($result);
+    }
 }

@@ -7,6 +7,16 @@ require_once "./src/crud/crud.php";
 require_once "./configs/dbConnect.php";
 require_once "./src/Repository/UsersRepository.php";
 
+include "./templates/users/new.php";
+
+$redirectNeeded = false;
+
+if (isset($_POST['action']) && $_POST['action'] === 'delete') {
+    $id = $_POST['id'];
+    delete($user, $id);
+    $redirectNeeded = true;
+}
+
 $repository = new UsersRepository();
 $users = $repository->findAll();
 ?>
@@ -16,6 +26,9 @@ $users = $repository->findAll();
 <div class="container mt-5">
     <h1>Liste des Utilisateurs</h1>
 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
+        Créer un utilisateur
+    </button>
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -25,7 +38,7 @@ $users = $repository->findAll();
                 <th>Date de création</th>
                 <th>Date de modification</th>
                 <th>Dernière connexion</th>
-                <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -42,7 +55,7 @@ $users = $repository->findAll();
                 
                 // Boutons d'action
                 echo "<td>";
-                echo "<a href='./?page=admin&sous-page=user&action=new' class='btn btn-success'>Créer</a> ";
+                
                 echo "<a href='./templates/users/edit.php?page=admin&sous-page=user&action=edit&id=" . $users[$i]->getId() . "' class='btn btn-primary'>Editer</a> ";
                 echo "<form method='post' action=''>";
                 echo "<input type='hidden' name='action' value='delete'>";
@@ -62,8 +75,11 @@ $users = $repository->findAll();
 //TODO suppression
 if (isset($_POST['action']) && $_POST['action'] === 'delete') {
     $id = $_POST['id'];
-    delete($etudiant, $id);
-    header('Location: index.php?page=accueil');
+    delete($user, $id);
+}
+
+if ($redirectNeeded) {
+    echo '<script>window.location.href = "index.php?page=admin&sous-page=user";</script>';
     exit();
 }
 ?>

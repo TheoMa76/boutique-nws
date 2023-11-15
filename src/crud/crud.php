@@ -179,6 +179,11 @@ function read(string $table){
     }
 }
 
+function getQueryRead(string $table){
+    $query = queryBuilder('r', $table);
+    return $query;
+}
+
 
 
 
