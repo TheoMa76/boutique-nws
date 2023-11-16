@@ -28,9 +28,11 @@ if(isset($_GET['page']) && $_GET['page'] === 'accueil') {
 }
 
 if(isset($_GET['page']) && $_GET['page'] === 'admin') {
-    $user = unserialize(serialize($_SESSION['user']));
-    if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['user']) && $user->getRole() === 'admin'){
-        include './templates/admin/admin.php';
+    if(isset($_SESSION)){
+        $user = unserialize(serialize($_SESSION['user']));
+        if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['user']) && $user->getRole() === 'admin'){
+            include './templates/admin/admin.php';
+        }
 }else {
         include './templates/error/404.php';
         exit();
