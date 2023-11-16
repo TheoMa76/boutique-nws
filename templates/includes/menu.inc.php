@@ -19,14 +19,16 @@ session_start();
           <a class="nav-link" href="./?page=accueil">Accueil <span class="sr-only">(current)</span></a>
         </li>
         <?php
-         if (isset($_SESSION['user']) && $_SESSION['user_role'] == 'admin') {
-          // Si l'utilisateur a le role admin
-            echo '
-            <li class="nav-item">
-            <a class="nav-link" href="./?page=admin">Administration</a>
-            </li>
-            ';
-        } 
+         if (isset($_SESSION)){
+            if(isset($_SESSION['user']) && $_SESSION['user_role'] == 'admin') {
+            // Si l'utilisateur a le role admin
+              echo '
+              <li class="nav-item">
+              <a class="nav-link" href="./?page=admin">Administration</a>
+              </li>
+              ';
+          } 
+        }
         ?>
         <li class="nav-item">
           <a class="nav-link" href="./?page=produits">Produits</a>
@@ -37,6 +39,7 @@ session_start();
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php
+          if (isset($_SESSION)){
                     if (isset($_SESSION['user'])) {
                         // Si l'utilisateur est connecté
                         echo '
@@ -51,6 +54,7 @@ session_start();
                         <a class="dropdown-item" href="./?page=login">Connexion</a>
                         ';
                     }
+                  }
                     ?>
           </div>
         </li>

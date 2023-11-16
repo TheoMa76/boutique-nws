@@ -8,6 +8,7 @@ require_once "./configs/dbConnect.php";
 require_once "./src/Repository/UsersRepository.php";
 
 include "./templates/users/new.php";
+include "./templates/users/edit.php";
 
 $redirectNeeded = false;
 
@@ -56,7 +57,8 @@ $users = $repository->findAll();
                 // Boutons d'action
                 echo "<td>";
                 
-                echo "<a href='./templates/users/edit.php?page=admin&sous-page=user&action=edit&id=" . $users[$i]->getId() . "' class='btn btn-primary'>Editer</a> ";
+                // echo "<a href='./templates/users/edit.php?page=admin&sous-page=user&action=edit&id=" . $users[$i]->getId() . "' class='btn btn-primary'>Editer</a> ";
+                echo "<button type='button' class='btn btn-primary edit-button' data-toggle='modal' data-target='#editUserModal' data-id='" . $users[$i]->getId() . "'>Editer</button>";
                 echo "<form method='post' action=''>";
                 echo "<input type='hidden' name='action' value='delete'>";
                 echo "<input type='hidden' name='id' value='" . $users[$i]->getId() . "'>";
@@ -70,6 +72,38 @@ $users = $repository->findAll();
         </tbody>
     </table>
 </div>
+<script>
+    function addUserIDToURL(userID) {
+            var currentURL = window.location.href;
+            var separator = currentURL.indexOf('?') !== -1 ? '&' : '?';
+            var newURL = currentURL + separator + 'id=' + userID;
+            window.history.pushState({ path: newURL }, '', newURL);
+        }
+
+    function removeUserIDFromURL() {
+        var currentURL = window.location.href;
+        var newURL = currentURL.replace(/[?&]id=\d+/g, '');
+        console.log(newURL);
+        window.history.replaceState({ path: newURL }, '', newURL);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var editUserModal = document.getElementById('editUserModal');
+        var editButtons = document.querySelectorAll('.edit-button');
+
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var userId = button.getAttribute('data-id');
+                if (window.location.href.indexOf('id=') !== -1) {
+                    removeUserIDFromURL();
+                }
+                addUserIDToURL(userId);
+
+                $('#editUserModal').modal('show');
+            });
+        });
+    });
+</script>
+
 
 <?php
 //TODO suppression

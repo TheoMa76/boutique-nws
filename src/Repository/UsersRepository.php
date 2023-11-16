@@ -23,6 +23,11 @@ class UsersRepository {
 
     function findById($id){
        $result = read("users");
-       dd($result);
+       $user = new Users ($result[0]['password'],$result[0]['email'] ,$result[0]['role']);
+       $user->setCreatedAt($result[0]['createdAt']);
+       $user->setId($result[0]['id']);
+       $user->setLastLogin($result[0]['lastLogin']);
+       $user->setUpdatedAt($result[0]['updatedAt']);
+       return $user;
     }
 }
