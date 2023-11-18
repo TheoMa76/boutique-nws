@@ -4,15 +4,8 @@ use Theo\Entity\Produits;
 require_once "./templates/includes/layoutGeneral.inc.php";
 require_once "./src/crud/crud.php";
 require_once "./src/Entity/Produits.php";
-require_once "./src/Repository/ProduitsRepository.php";
 
-use Theo\Repository\ProduitsRepository;
-
-$produitID = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
-$repository = new ProduitsRepository();
-$produit = $repository->findById($produitID);
-
-if(isset($_POST['editProduitBtn'])) {
+if(isset($_POST['createProduitBtn'])) {
 
     $nom = $_POST["nom"];
     $shortDesc = $_POST["shortDesc"];
@@ -21,24 +14,19 @@ if(isset($_POST['editProduitBtn'])) {
     $quantite = $_POST["quantite"];
     $enAvant = isset($_POST["enAvant"]) ? 1 : 0;
 
-    $produit->setNom($nom);
-    $produit->setShortDesc($shortDesc);
-    $produit->setDescription($description);
-    $produit->setprix($prix);
-    $produit->setQuantite($quantite);
-    $produit->setEnAvant($enAvant);
+    $nouveauProduit = new Produits($nom, $shortDesc, $description, $prix, $quantite, $enAvant);
 
-    update($produit, $produitID);
-    echo "Produit modifié avec succès !";
+
+    create($nouveauProduit);
+    echo "Produit créé avec succès !";
 }
-
 ?>
 
-<div class="modal fade" id="editProduitModal" tabindex="-1" role="dialog" aria-labelledby="editProduitModalLabel" aria-hidden="true">
+<div class="modal fade" id="createProduitModal" tabindex="-1" role="dialog" aria-labelledby="createProduitModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editProduitModalLabel">Modifier un produit</h5>
+        <h5 class="modal-title" id="createProduitModalLabel">Créer un produit</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -47,37 +35,37 @@ if(isset($_POST['editProduitBtn'])) {
         <form method="post" action="">
             <div class="form-group">
                     <label for="nom">Nom :</label>
-                    <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $produit->getNom(); ?>" required>
+                    <input type="text" class="form-control" id="nom" name="nom" required>
                 </div>
 
                 <div class="form-group">
                     <label for="shortDesc">Description courte :</label>
-                    <input type="text" class="form-control" id="shortDesc" name="shortDesc" value="<?php echo $produit->getShortDesc(); ?>" required>
+                    <input type="text" class="form-control" id="shortDesc" name="shortDesc" required>
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description :</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" required><?php echo $produit->getDescription(); ?></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="prix">Prix :</label>
-                    <input type="number" class="form-control" id="prix" name="prix" step="0.5" value="<?php echo $produit->getPrix(); ?>" required>
+                    <input type="number" class="form-control" id="prix" name="prix" step="0.01" required>
                 </div>
 
                 <div class="form-group">
                     <label for="quantite">Quantité :</label>
-                    <input type="number" class="form-control" id="quantite" name="quantite" value="<?php echo $produit->getQuantite(); ?>" required>
+                    <input type="number" class="form-control" id="quantite" name="quantite" required>
                 </div>
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="enAvant" name="enAvant" <?php echo ($produit->getEnAvant() == 1) ? 'checked' : ''; ?>>
+                        <input type="checkbox" class="custom-control-input" id="enAvant" name="enAvant">
                         <label class="custom-control-label" for="enAvant">Mettre en avant</label>
                     </div>
                 </div>
                         <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary" name="editProduitBtn">Créer</button>
+                        <button type="submit" class="btn btn-primary" name="createProduitBtn">Créer</button>
                     </div>
             </form>
         </div>

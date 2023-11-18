@@ -15,5 +15,17 @@ if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['sous-page'
      }
 }
 
+if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['sous-page']) && $_GET['sous-page'] === 'produit') {
+    if(isset($_GET['action']) && $_GET['action'] === 'new') {
+         include './templates/produits/new.php';
+     }else{
+        include './templates/produits/listProduits.php';
+     }
+}
+
+if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['sous-page']) && $_GET['sous-page'] === 'commande') {
+        include './templates/commandes/listCommandes.php';
+}
+
 ?>
 

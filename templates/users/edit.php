@@ -10,12 +10,11 @@ use Theo\Repository\UsersRepository;
 
 use Theo\Entity\Users;
 
+$userID = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
+$repository = new UsersRepository();
+$user = $repository->findById($userID);
 
 if(isset($_POST['editUserBtn'])) {
-
-  $userID = $_GET['id'];
-  $repository = new UsersRepository();
-  $user = $repository->findById($userID);
 
   $email = $_POST['email'];
   $role = $_POST['role'];
@@ -35,7 +34,7 @@ if(isset($_POST['editUserBtn'])) {
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editUserModalLabel">Editer un utilisateur</h5>
+        <h5 class="modal-title" id="editUserModalLabel">Modifier un utilisateur</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -44,11 +43,11 @@ if(isset($_POST['editUserBtn'])) {
             <form method="post" action="">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $user->getEmail() ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="role">Rôle:</label>
-                    <input type="text" class="form-control" id="role" name="role" required>
+                    <input type="text" class="form-control" id="role" name="role" value="<?php echo $user->getRole() ?>" required>
                 </div>
                 <div class="form-group text-center">
                     <button type="submit" class="btn btn-primary" name="editUserBtn">Éditer</button>

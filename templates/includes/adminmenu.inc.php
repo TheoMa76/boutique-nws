@@ -29,7 +29,7 @@
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="./?page=admin?page=produit">
+                        <a class="nav-link" href="./?page=admin&sous-page=produit">
                             Produits
                         </a>
                     </li>
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./?page=admin?page=commande">
+                        <a class="nav-link" href="./?page=admin&sous-page=commande">
                             Commandes
                         </a>
                     </li>

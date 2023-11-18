@@ -106,11 +106,7 @@ $users = $repository->findAll();
 
 
 <?php
-//TODO suppression
-if (isset($_POST['action']) && $_POST['action'] === 'delete') {
-    $id = $_POST['id'];
-    delete($user, $id);
-}
+
 
 if ($redirectNeeded) {
     echo '<script>window.location.href = "index.php?page=admin&sous-page=user";</script>';
