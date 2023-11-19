@@ -10,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $email = $_POST['email'];
   $password = $_POST['password'];
   $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
-  $role = $_POST['role'];
+  $role = 'client';
 
   date_default_timezone_set('Europe/Paris');
   $date = new DateTime();
@@ -37,10 +37,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="form-group">
                     <label for="password">Mot de passe:</label>
                     <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">Rôle:</label>
-                    <input type="text" class="form-control" id="role" name="role" required>
                 </div>
                 <div class="form-group text-center">
                     <button type="submit" class="btn btn-primary">S'inscrire</button>
