@@ -35,7 +35,6 @@ if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']
       $user_email = $_SESSION['user']->getEmail();
 
     header("Location: ?page=accueil");
-    echo("Bienvenue $user_email");
     exit();
     } else {
       echo "Aucun utilisateur connecté";

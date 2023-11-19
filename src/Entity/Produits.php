@@ -14,13 +14,16 @@ class Produits
     protected $quantite;
     protected $enAvant;
 
-    public function __construct($nom,$shortDesc,$description,$prix,$quantite,$enAvant){ 
+    protected $image;
+
+    public function __construct($nom,$shortDesc,$description,$prix,$quantite,$enAvant, $image = null){ 
         $this->nom = $nom;
         $this->shortDesc = $shortDesc;
         $this->description = $description;
         $this->prix = $prix;
         $this->quantite = $quantite;
         $this->enAvant = $enAvant;
+        $this->image = $image;
     }
 
     public function getId(): ?int
@@ -102,6 +105,16 @@ class Produits
     {
         $this->enAvant = $enAvant;
 
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage($image): self{
+        $this->image = $image;
         return $this;
     }
 }

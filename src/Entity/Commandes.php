@@ -12,7 +12,7 @@ class Commandes
     protected $telephone;
     protected $envoye;
 
-    public function __construct($nom,$adresse,$telephone,$envoye){ 
+    public function __construct($nom,$adresse,$telephone,$envoye = false){ 
         $this->nom = $nom;
         $this->adresse = $adresse;
         $this->telephone = $telephone;

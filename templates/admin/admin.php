@@ -8,16 +8,24 @@ require_once "./configs/dbConnect.php";
 require_once "./src/Repository/UsersRepository.php";
 
 if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['sous-page']) && $_GET['sous-page'] === 'user') {
-    if(isset($_GET['action']) && $_GET['action'] === 'new') {
-         include './templates/users/new.php';
+    if(isset($_GET['action']) && $_GET['action'] === 'edit') {
+         include './templates/users/edit.php';
      }else{
         include './templates/users/listUsers.php';
      }
 }
 
 if (isset($_GET['page']) && $_GET['page'] === 'admin' && isset($_GET['sous-page']) && $_GET['sous-page'] === 'produit') {
-    if(isset($_GET['action']) && $_GET['action'] === 'new') {
-         include './templates/produits/new.php';
+    if(isset($_GET['action']) && $_GET['action'] === 'edit') {
+         include './templates/produits/edit.php';
+     }else{
+        include './templates/produits/listProduits.php';
+     }
+}
+
+if (isset($_GET['page']) && $_GET['page'] === 'admin' && !isset($_GET['sous-page'])) {
+    if(isset($_GET['action']) && $_GET['action'] === 'edit') {
+         include './templates/produits/edit.php';
      }else{
         include './templates/produits/listProduits.php';
      }

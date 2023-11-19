@@ -78,7 +78,7 @@ function queryBuilder($method, $table, ...$payload){
                 if($key === "id"){
                     $idFound = true;
                 
-                    $query .= "WHERE ";
+                    $query .= " WHERE ";
                     $query .= "`" . $key . "` = ". $value;
                 } 
             }

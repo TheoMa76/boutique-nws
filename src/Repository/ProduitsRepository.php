@@ -13,7 +13,7 @@ class ProduitsRepository {
     $result = read("produits");
     if(!empty($result)){
         for ($i = 0; $i < count($result); $i++) {
-            $produits[] = new Produits($result[$i]['nom'],$result[$i]['shortDesc'] ,$result[$i]['description'],$result[$i]['prix'],$result[$i]['quantite'],$result[$i]['enAvant']);
+            $produits[] = new Produits($result[$i]['nom'],$result[$i]['shortDesc'] ,$result[$i]['description'],$result[$i]['prix'],$result[$i]['quantite'],$result[$i]['enAvant'],$result[$i]['image']);
             $produits[$i]->setId($result[$i]['id']);
         }
         return $produits;
@@ -22,8 +22,29 @@ class ProduitsRepository {
 
     function findById($id){
         $result = read("produits");
-        $produit = new Produits($result[0]['nom'],$result[0]['shortDesc'] ,$result[0]['description'],$result[0]['prix'],$result[0]['quantite'],$result[0]['enAvant']);
-        $produit->setId($result[0]['id']);
-        return $produit;
+        if(!empty($result)){
+            for ($i = 0; $i < count($result); $i++) {
+                if($result[$i]['id'] == $id){
+                    $produit = new Produits($result[$i]['nom'],$result[$i]['shortDesc'] ,$result[$i]['description'],$result[$i]['prix'],$result[$i]['quantite'],$result[$i]['enAvant'],$result[$i]['image']);
+                    $produit->setId($id);
+                    return $produit;
+                }
+            }
+        }
     }
+
+    function findByEnAvant(){
+        $result = read("produits");
+        if(!empty($result)){
+            for ($i = 0; $i < count($result); $i++) {
+                if($result[$i]['enAvant'] == 1){
+                    $produit = new Produits($result[$i]['nom'],$result[$i]['shortDesc'] ,$result[$i]['description'],$result[$i]['prix'],$result[$i]['quantite'],$result[$i]['enAvant'],$result[$i]['image']);
+                    $produit->setId($result[$i]['id']);
+                    $produits[] = $produit;
+                }
+            }
+            return $produits;
+        }
+    }
+
 }

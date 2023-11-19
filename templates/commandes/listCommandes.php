@@ -9,7 +9,7 @@ require_once "./src/Repository/CommandesRepository.php";
 use Theo\Repository\CommandesRepository;
 use Theo\Entity\Commandes;
 
-
+$redirectNeeded = false;
 $result = read("commandes");
 $commandeID = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 $repository = new CommandesRepository();
@@ -53,11 +53,11 @@ $commande = $repository->findById($commandeID);
 
         editButtons.forEach(function (button) {
             button.addEventListener('click', function () {
-                var produitId = button.getAttribute('data-id');
+                var commandeID = button.getAttribute('data-id');
                 if (window.location.href.indexOf('id=') !== -1) {
-                    removeProduitIDFromURL();
+                    removeCommandeIDFromURL();
                 }
-                addProduitsIDToURL(produitId);
+                addCommandeIDToURL(commandeID);
             });
         });
     });
@@ -87,9 +87,6 @@ if (count($result) > 0) {
             echo "</td>";
         echo "</tr>";
         
-        
-        
-        echo "</tr>";
     }
     
     echo "</table>";
@@ -103,7 +100,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'edit') {
         echo "<div class='alert alert-danger'>Cette commande a déjà été envoyée !</div>";
     } else {
     $commande->setEnvoye(true);
-    update($commande, $commandesID);
+    update($commande, $commandeID);
+    $redirectNeeded = true;
     }
 }
 

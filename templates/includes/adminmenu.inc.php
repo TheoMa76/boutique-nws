@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
         .sidebar-sticky {
             position: fixed;
             height: 100vh;
@@ -21,11 +21,11 @@
             padding: 10px 16px;
             text-decoration: none;
         }
-    </style>
+    </style> -->
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="sidebar">
+        <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -46,3 +46,9 @@
                 </ul>
             </div>
         </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+        </main>
+    </div>
+</div>

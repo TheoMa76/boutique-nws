@@ -27,11 +27,11 @@ CREATE TABLE commandes (
 );
 
 CREATE TABLE commandes_produit (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     commande_id INT,
     produit_id INT,
-    FOREIGN KEY (commande_id) REFERENCES Commandes(id),
-    FOREIGN KEY (produit_id) REFERENCES Produit(id)
+    FOREIGN KEY (commande_id) REFERENCES commandes(id),
+    FOREIGN KEY (produit_id) REFERENCES produits(id),
+    PRIMARY KEY (commande_id, produit_id)
 );
 
 ALTER TABLE users 

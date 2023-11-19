@@ -5,6 +5,13 @@ require_once "./templates/includes/layoutGeneral.inc.php";
 require_once "./src/crud/crud.php";
 require_once "./src/Entity/Produits.php";
 
+function generateRandomFileName($originalFileName)
+{
+    $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+    $randomFileName = md5(uniqid(rand(), true)) . '.' . $extension;
+    return $randomFileName;
+}
+
 if(isset($_POST['createProduitBtn'])) {
 
     $nom = $_POST["nom"];
@@ -15,6 +22,16 @@ if(isset($_POST['createProduitBtn'])) {
     $enAvant = isset($_POST["enAvant"]) ? 1 : 0;
 
     $nouveauProduit = new Produits($nom, $shortDesc, $description, $prix, $quantite, $enAvant);
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+      $imageFileName = generateRandomFileName($_FILES['image']['name']);
+      $destinationPath = './public/img/' . $imageFileName;
+      move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath);
+      $image = $imageFileName;
+      $nouveauProduit->setImage($image);
+  }
+
+    
 
 
     create($nouveauProduit);

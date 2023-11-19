@@ -10,7 +10,17 @@ use Theo\Repository\ProduitsRepository;
 
 $produitID = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 $repository = new ProduitsRepository();
-$produit = $repository->findById($produitID);
+
+function generateRandomFileName($originalFileName)
+{
+    $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+    $randomFileName = md5(uniqid(rand(), true)) . '.' . $extension;
+    return $randomFileName;
+}
+
+if(isset($produitID) && !empty($produitID)){
+    $produit = $repository->findById($produitID);
+}
 
 if(isset($_POST['editProduitBtn'])) {
 
@@ -27,28 +37,33 @@ if(isset($_POST['editProduitBtn'])) {
     $produit->setprix($prix);
     $produit->setQuantite($quantite);
     $produit->setEnAvant($enAvant);
+    $imageFileName = '';
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $imageFileName = generateRandomFileName($_FILES['image']['name']);
+        $destinationPath = './public/img/' . $imageFileName;
+        move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath);
+    }
+    $produit->setImage($destinationPath);
 
     update($produit, $produitID);
-    echo "Produit modifié avec succès !";
+    echo '<script>window.location.href = "index.php?page=admin&sous-page=produit";</script>';
 }
 
 ?>
 
-<div class="modal fade" id="editProduitModal" tabindex="-1" role="dialog" aria-labelledby="editProduitModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editProduitModalLabel">Modifier un produit</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="post" action="">
+        <h5>Modifier un produit</h5>
+      <div class="container mt-5">
+        <form method="post" action="" enctype="multipart/form-data">
             <div class="form-group">
                     <label for="nom">Nom :</label>
                     <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $produit->getNom(); ?>" required>
                 </div>
+
+                    <div class="form-group">
+                        <label for="image">Image :</label>
+                        <input type="file" class="form-control-file" id="image" name="image">
+                    </div>
 
                 <div class="form-group">
                     <label for="shortDesc">Description courte :</label>
@@ -77,13 +92,7 @@ if(isset($_POST['editProduitBtn'])) {
                     </div>
                 </div>
                         <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary" name="editProduitBtn">Créer</button>
+                        <button type="submit" class="btn btn-primary" name="editProduitBtn">Éditer</button>
                     </div>
             </form>
         </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
