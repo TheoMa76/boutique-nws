@@ -28,7 +28,7 @@ if(isset($_POST['createProduitBtn'])) {
       $destinationPath = './public/img/' . $imageFileName;
       move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath);
       $image = $imageFileName;
-      $nouveauProduit->setImage($image);
+      $nouveauProduit->setImage($destinationPath);
   }
 
     
