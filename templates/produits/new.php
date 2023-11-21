@@ -28,7 +28,7 @@ if(isset($_POST['createProduitBtn'])) {
       $destinationPath = './public/img/' . $imageFileName;
       move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath);
       $image = $imageFileName;
-      $nouveauProduit->setImage($image);
+      $nouveauProduit->setImage($destinationPath);
   }
 
     
@@ -49,11 +49,16 @@ if(isset($_POST['createProduitBtn'])) {
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             <div class="form-group">
                     <label for="nom">Nom :</label>
                     <input type="text" class="form-control" id="nom" name="nom" required>
                 </div>
+                
+                <div class="form-group">
+                        <label for="image">Image :</label>
+                        <input type="file" class="form-control-file" id="image" name="image">
+                    </div>
 
                 <div class="form-group">
                     <label for="shortDesc">Description courte :</label>

@@ -37,3 +37,6 @@ CREATE TABLE commandes_produit (
 ALTER TABLE users 
 ADD COLUMN role VARCHAR(10) NOT NULL AFTER `password`, 
 ADD COLUMN updatedAt DATE AFTER `createdAt`;
+
+ALTER TABLE produits
+ADD COLUMN image VARCHAR(255) AFTER `quantite`;

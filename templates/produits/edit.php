@@ -38,16 +38,17 @@ if(isset($_POST['editProduitBtn'])) {
     $produit->setQuantite($quantite);
     $produit->setEnAvant($enAvant);
     $imageFileName = '';
+    $destinationPath = $produit->getImage();
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $imageFileName = generateRandomFileName($_FILES['image']['name']);
         $destinationPath = './public/img/' . $imageFileName;
         move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath);
+        $produit->setImage($destinationPath);
     }
-    $produit->setImage($destinationPath);
 
     update($produit, $produitID);
-    echo '<script>window.location.href = "index.php?page=admin&sous-page=produit";</script>';
+    //echo '<script>window.location.href = "index.php?page=admin&sous-page=produit";</script>';
 }
 
 ?>
@@ -62,7 +63,7 @@ if(isset($_POST['editProduitBtn'])) {
 
                     <div class="form-group">
                         <label for="image">Image :</label>
-                        <input type="file" class="form-control-file" id="image" name="image">
+                        <input type="file" class="form-control-file" id="image" name="image" value="<?php echo $destinationPath ?>">
                     </div>
 
                 <div class="form-group">
