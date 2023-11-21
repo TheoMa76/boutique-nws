@@ -48,7 +48,7 @@ if(isset($_POST['editProduitBtn'])) {
     }
 
     update($produit, $produitID);
-    //echo '<script>window.location.href = "index.php?page=admin&sous-page=produit";</script>';
+    echo '<script>window.location.href = "index.php?page=admin&sous-page=produit";</script>';
 }
 
 ?>
