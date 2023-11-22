@@ -22,8 +22,10 @@ class CommandesRepository {
 
     function findById($id){
         $result = read("commandes");
-        $commande = new Commandes($result[0]['nom'],$result[0]['adresse'] ,$result[0]['telephone'],$result[0]['envoye']);
-        $commande->setId($result[0]['id']);
-        return $commande;
+        if(!empty($result)){
+            $commande = new Commandes($result[0]['nom'],$result[0]['adresse'] ,$result[0]['telephone'],$result[0]['envoye']);
+            $commande->setId($result[0]['id']);
+            return $commande;
+        }
     }
 }
