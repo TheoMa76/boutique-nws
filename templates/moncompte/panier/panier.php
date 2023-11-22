@@ -2,10 +2,6 @@
 use Theo\Repository\ProduitsRepository;
 
 
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo "Votre panier est vide.";
-} else {
-    // Inclure les fichiers nécessaires
     require_once "./templates/includes/layoutGeneral.inc.php";
     require_once "./src/Repository/ProduitsRepository.php";
 
@@ -93,7 +89,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     </div>
 
 <?php
-}
+
 if(isset($_POST['action']) && $_POST['action'] === 'updateCart') {
     $produitID = $_POST['produitID'];
     $quantite = (int)$_POST['quantite'];

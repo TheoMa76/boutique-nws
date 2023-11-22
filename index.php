@@ -6,9 +6,6 @@ require_once "./src/outils/htmlGen.php";
 include "./templates/includes/menu.inc.php";
 require_once "./src/Entity/Users.php";
 
-
-debugMode(true);
-
 if(isset($_GET['page']) && $_GET['page'] === 'register') {
     include './templates/auth/register.php';
 }
@@ -41,6 +38,7 @@ if(isset($_GET['page']) && $_GET['page'] === 'panier') {
     if(isset($_SESSION['cart'])) {
         include './templates/moncompte/panier/panier.php';
     } else {
+        include './templates/moncompte/panier/panier.php';
         echo "<div class='alert alert-danger'>Votre panier est vide.</div>";
     }
 }
