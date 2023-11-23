@@ -3,7 +3,7 @@ session_start();
 ?>
 <style>
         .navbar {
-           z-index: 9999;
+           z-index: 999;
         }
     </style>
     
