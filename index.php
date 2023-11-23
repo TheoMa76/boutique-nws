@@ -62,5 +62,3 @@ if(isset($_GET['page']) && $_GET['page'] === 'admin') {
         exit();
     }
 }
-
-echo "ceci est un test pour mon scriptbash";
